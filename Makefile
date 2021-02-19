@@ -23,7 +23,6 @@ clear:									## Clear route, config and cache
 
 create_db:								## Create DB (locally).
 	mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS ${DB_DATABASE} CHARACTER SET utf8 COLLATE utf8_general_ci"
-#mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS cTravel CHARACTER SET utf8 COLLATE utf8_general_ci"
 
 import_db:
 	mysql -u root -p info_clubstravel_ee_backend < ~/Downloads/cTravel/info_clubstravel_ee_backend_2020-10-13_13-17-16.sql
@@ -67,7 +66,7 @@ ide-helper:								## Set PHPStorm IDE Healper and add some file to .gitignore
 git:									## Git add, commit and push all in one command
 	git add .
 	git commit -m "$m"
-	git push
+	#git push
 	git status
     #git push -u origin master
 
