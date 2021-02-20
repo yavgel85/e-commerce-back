@@ -94,6 +94,9 @@ seeder-only-one:
 start:									## Start App
 	php artisan serve --port=8001
 
+test:									## Start Tests
+	php artisan test
+
 tinker: 								## Start Tinker
 	php artisan tinker
 # factory(App\User::class)->create(['name'=>'Eugene Yavgel','email'=>'eugene.yavgel@gmail.com','password'=>bcrypt('password')]);

@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return 'HELLO';
+    $categories = \App\Models\Category::parents()->ordered()->get()->dd();
 });
