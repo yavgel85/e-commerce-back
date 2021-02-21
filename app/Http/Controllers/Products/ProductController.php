@@ -3,18 +3,17 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductIndexResource;
 use App\Models\Product;
 
 class ProductController extends Controller
 {
-//    public function index()
-//    {
-//        $products = Product::with(['variations.stock'])->withScopes($this->scopes())->paginate(10);
-//
-//        return ProductIndexResource::collection(
-//            $products
-//        );
-//    }
+    public function index()
+    {
+        $products = Product::/*with(['variations.stock'])->withScopes($this->scopes())->*/paginate(10);
+
+        return ProductIndexResource::collection($products);
+    }
 
 //    public function show(Product $product)
 //    {
