@@ -66,7 +66,7 @@ ide-helper:								## Set PHPStorm IDE Healper and add some file to .gitignore
 git:									## Git add, commit and push all in one command
 	git add .
 	git commit -m "$m"
-	#git push
+	git push
 	git status
     #git push -u origin master
 
