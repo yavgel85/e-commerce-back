@@ -6,6 +6,7 @@ use App\Models\Traits\HasChildren;
 use App\Models\Traits\IsOrderable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
@@ -17,5 +18,10 @@ class Category extends Model
     public function children(): HasMany
     {
         return $this->hasMany(__CLASS__, 'parent_id', 'id');
+    }
+
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class);
     }
 }
