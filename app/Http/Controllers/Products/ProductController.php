@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductIndexResource;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -15,14 +16,14 @@ class ProductController extends Controller
         return ProductIndexResource::collection($products);
     }
 
-//    public function show(Product $product)
-//    {
-//        $product->load(['variations.type', 'variations.stock', 'variations.product']);
-//
-//        return new ProductResource(
-//            $product
-//        );
-//    }
+    public function show(Product $product)
+    {
+        //$product->load(['variations.type', 'variations.stock', 'variations.product']);
+
+        return new ProductResource(
+            $product
+        );
+    }
 
 //    protected function scopes()
 //    {
