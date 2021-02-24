@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\CanBeScoped;
+use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    use HasFactory, CanBeScoped;
+    use HasFactory, CanBeScoped, HasPrice;
 
     protected $fillable = ['name', 'slug', 'description', 'price'];
 
