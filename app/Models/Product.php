@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Scoping\Scoper;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Traits\CanBeScoped;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -11,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, CanBeScoped;
 
     protected $fillable = ['name', 'slug', 'description', 'price'];
 
@@ -28,10 +27,5 @@ class Product extends Model
     public function variations(): HasMany
     {
         return $this->hasMany(ProductVariation::class)->orderBy('order', 'asc');
-    }
-
-    public function scopeWithScopes(Builder $builder, $scopes = []): Builder
-    {
-        return (new Scoper(request()))->apply($builder, $scopes);
     }
 }
