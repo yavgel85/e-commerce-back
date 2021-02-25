@@ -53,7 +53,7 @@ class ProductVariation extends Model
         ]);
     }
 
-    public function inStock()
+    public function inStock(): bool
     {
         return $this->stockCount() > 0;
     }
