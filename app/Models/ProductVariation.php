@@ -7,6 +7,8 @@ use App\Models\Traits\HasPrice;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ProductVariation extends Model
@@ -36,4 +38,23 @@ class ProductVariation extends Model
     {
         return $this->price->amount() !== $this->product->price->amount();
     }
+
+    public function stocks(): HasMany
+    {
+        return $this->hasMany(Stock::class);
+    }
+
+//    public function stock(): BelongsToMany
+//    {
+//        return $this->belongsToMany(__CLASS__, 'product_variation_stock_view')
+//        ->withPivot([
+//            'stock',
+//            'in_stock'
+//        ]);
+//    }
+
+//    public function newCollection(array $models = [])
+//    {
+//        return new ProductVariationCollection($models);
+//    }
 }
