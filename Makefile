@@ -92,10 +92,17 @@ seeder-only-one:
 	php artisan db:seed --class=UsersWithRolesAndBUSeeder
 
 start:									## Start App
-	php artisan serve --port=8001
+	php artisan serve --port=8000
 
-test:									## Start Tests
+tests:									## Start All Tests
 	php artisan test
+
+tests_parallel:									## Start All Tests Parallel
+	php artisan test --parallel --recreate-databases
+
+# make test name="ProductVariationTest"
+oneTest:									## Start One Tests
+	php artisan test --filter="$(name)"
 
 tinker: 								## Start Tinker
 	php artisan tinker

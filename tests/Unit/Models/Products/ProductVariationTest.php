@@ -79,4 +79,83 @@ class ProductVariationTest extends TestCase
 
         $this->assertInstanceOf(Stock::class, $variation->stocks->first());
     }
+
+    public function test_it_has_stock_information(): void
+    {
+        $variation = ProductVariation::factory()->create();
+
+        $variation->stocks()->save(
+            Stock::factory()->make()
+        );
+
+        $this->assertInstanceOf(ProductVariation::class, $variation->stock->first());
+    }
+
+    public function test_it_has_stock_count_pivot_within_stock_information(): void
+    {
+        $variation = ProductVariation::factory()->create();
+
+        $variation->stocks()->save(
+            Stock::factory()->make([
+                'quantity' => $quantity = 5
+            ])
+        );
+
+        $this->assertEquals($variation->stock->first()->pivot->stock, $quantity);
+    }
+
+    public function test_it_has_in_stock_pivot_within_stock_information(): void
+    {
+        $variation = ProductVariation::factory()->create();
+
+        $variation->stocks()->save(
+            Stock::factory()->make()
+        );
+
+        $this->assertTrue((bool) $variation->stock->first()->pivot->in_stock);
+        //$this->assertSame(1, $variation->stock->first()->pivot->in_stock);
+    }
+
+    public function test_it_can_check_if_its_in_stock(): void
+    {
+        $variation = ProductVariation::factory()->create();
+
+        $variation->stocks()->save(
+            Stock::factory()->make()
+        );
+
+        $this->assertTrue((bool) $variation->inStock());
+    }
+
+    public function test_it_can_get_stock_count(): void
+    {
+        $variation = ProductVariation::factory()->create();
+
+        $variation->stocks()->save(
+            Stock::factory()->make([
+                'quantity' => 5
+            ])
+        );
+
+        $variation->stocks()->save(
+            Stock::factory()->make([
+                'quantity' => 5
+            ])
+        );
+
+        $this->assertEquals($variation->stockCount(), 10);
+    }
+
+//    public function test_it_can_get_the_minimum_stock_for_a_given_value(): void
+//    {
+//        $variation = ProductVariation::factory()->create();
+//
+//        $variation->stocks()->save(
+//            Stock::factory()->make([
+//                'quantity' => $quantity = 5
+//            ])
+//        );
+//
+//        $this->assertEquals($variation->minStock(200), $quantity);
+//    }
 }
