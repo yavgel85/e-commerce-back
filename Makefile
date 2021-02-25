@@ -101,8 +101,12 @@ tests_parallel:									## Start All Tests Parallel
 	php artisan test --parallel --recreate-databases
 
 # make test name="ProductVariationTest"
-oneTest:									## Start One Tests
+oneTestFile:									## Start One Test File
 	php artisan test --filter="$(name)"
+
+# make test name="ProductVariationTest"
+oneTest:									## Start One Test
+	phpunit --filter test_it_can_check_if_its_in_stock
 
 tinker: 								## Start Tinker
 	php artisan tinker
