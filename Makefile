@@ -104,9 +104,9 @@ tests_parallel:									## Start All Tests Parallel
 oneTestFile:									## Start One Test File
 	php artisan test --filter="$(name)"
 
-# make test name="ProductVariationTest"
+# make oneTest name="test_it_can_check_if_its_in_stock"
 oneTest:									## Start One Test
-	phpunit --filter test_it_can_check_if_its_in_stock
+	phpunit --filter $(name)
 
 tinker: 								## Start Tinker
 	php artisan tinker
