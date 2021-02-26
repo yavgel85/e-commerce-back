@@ -9,7 +9,7 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    public function action(RegisterRequest $request): PrivateUserResource
+    public function __invoke(RegisterRequest $request): PrivateUserResource
     {
         $user = User::create($request->only('email', 'name', 'password'));
 
