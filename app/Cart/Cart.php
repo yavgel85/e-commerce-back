@@ -27,6 +27,21 @@ class Cart
         ]);
     }
 
+    public function delete($productId): void
+    {
+        $this->user->cart()->detach($productId);
+    }
+
+    public function empty(): void
+    {
+        $this->user->cart()->detach();
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->user->cart->sum('pivot.quantity') <= 0;
+    }
+
     protected function getStorePayload($products): array
     {
         return collect($products)->keyBy('id')->map(function ($product) {
