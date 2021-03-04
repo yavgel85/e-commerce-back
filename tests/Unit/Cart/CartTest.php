@@ -144,4 +144,51 @@ class CartTest extends TestCase
 
         $this->assertInstanceOf(Money::class, $cart->total());
     }
+
+    public function test_it_syncs_the_cart_to_update_quantities(): void
+    {
+        $cart = new Cart(
+            $user = User::factory()->create()
+        );
+
+        $product = ProductVariation::factory()->create();
+        $anotherProduct = ProductVariation::factory()->create();
+
+        $user->cart()->attach([
+            $product->id => [
+                'quantity' => 2
+            ],
+            $anotherProduct->id => [
+                'quantity' => 2
+            ]
+        ]);
+
+        $cart->sync();
+
+        $this->assertEquals(0, $user->fresh()->cart->first()->pivot->quantity);
+        $this->assertEquals(0, $user->fresh()->cart->get(1)->pivot->quantity);
+    }
+
+    public function test_it_can_check_if_the_cart_has_changed_after_syncing(): void
+    {
+        $cart = new Cart(
+            $user = User::factory()->create()
+        );
+
+        $product = ProductVariation::factory()->create();
+        $anotherProduct = ProductVariation::factory()->create();
+
+        $user->cart()->attach([
+            $product->id => [
+                'quantity' => 2
+            ],
+            $anotherProduct->id => [
+                'quantity' => 0
+            ]
+        ]);
+
+        $cart->sync();
+
+        $this->assertTrue($cart->hasChanged());
+    }
 }
