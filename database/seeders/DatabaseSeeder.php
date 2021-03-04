@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             ProductVariationsTableSeeder::class,
             StocksTableSeeder::class,
             UsersTableSeeder::class,
+            CountriesTableSeeder::class,
         ]);
     }
 }
