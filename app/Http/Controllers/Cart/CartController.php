@@ -27,20 +27,20 @@ class CartController extends Controller
         ]);
 
         return (new CartResource($request->user()))
-            /*->additional([
+            ->additional([
                 'meta' => $this->meta($cart, $request)
-            ])*/;
+            ]);
     }
 
-//    protected function meta(Cart $cart, Request $request)
-//    {
-//        return [
-//            'empty' => $cart->isEmpty(),
-//            'subtotal' => $cart->subtotal()->formatted(),
-//            'total' => $cart->withShipping($request->shipping_method_id)->total()->formatted(),
-//            'changed' => $cart->hasChanged(),
-//        ];
-//    }
+    protected function meta(Cart $cart, Request $request): array
+    {
+        return [
+            'empty' => $cart->isEmpty(),
+            //'subtotal' => $cart->subtotal()->formatted(),
+            //'total' => $cart->withShipping($request->shipping_method_id)->total()->formatted(),
+            //'changed' => $cart->hasChanged(),
+        ];
+    }
 
     public function store(CartStoreRequest $request, Cart $cart): void
     {
