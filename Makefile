@@ -24,6 +24,19 @@ clear:									## Clear route, config and cache
 create_db:								## Create DB (locally).
 	mysql -uroot -p -e "CREATE DATABASE IF NOT EXISTS ${DB_DATABASE} CHARACTER SET utf8 COLLATE utf8_general_ci"
 
+speedup_db:								## Improve performance by up to 50% by using Unix sockets instead of TCP ports
+	echo "# DB_SOCKET=/tmp/mysql.sock 				# for MacOS" >> .env && \
+	echo "# DB_SOCKET=/var/run/mysqld/mysqld.sock 	# for Linux" >> .env
+# In your my.cnf file:
+# [mysqld]
+# user 	 = mysql
+# pid-file = /var/run/mysqld/mysqld.pid
+# socket 	 = /var/run/mysqld/mysqld.sock
+
+# In your .env file:
+# DB_SOCKET=/tmp/mysql.sock 			# for MacOS
+# DB_SOCKET=/var/run/mysqld/mysqld.sock # for Linux
+
 import_db:
 	mysql -u root -p info_clubstravel_ee_backend < ~/Downloads/cTravel/info_clubstravel_ee_backend_2020-10-13_13-17-16.sql
 
