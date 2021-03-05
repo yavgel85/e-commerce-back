@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             StocksTableSeeder::class,
             UsersTableSeeder::class,
             CountriesTableSeeder::class,
+            AddressesTableSeeder::class,
         ]);
     }
 }
