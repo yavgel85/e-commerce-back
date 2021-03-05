@@ -7,6 +7,7 @@ use App\Http\Requests\Addresses\AddressStoreRequest;
 use App\Http\Resources\AddressResource;
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AddressController extends Controller
 {
@@ -15,11 +16,9 @@ class AddressController extends Controller
         $this->middleware(['auth:api']);
     }
 
-    public function index(Request $request)
+    public function index(Request $request): AnonymousResourceCollection
     {
-        return AddressResource::collection(
-            $request->user()->addresses
-        );
+        return AddressResource::collection($request->user()->addresses);
     }
 
     public function store(AddressStoreRequest $request): AddressResource
