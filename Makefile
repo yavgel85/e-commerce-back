@@ -28,6 +28,9 @@ speedup_db:								## Improve performance by up to 50% by using Unix sockets ins
 	echo "# DB_SOCKET=/tmp/mysql.sock 				# for MacOS" >> .env && \
 	echo "# DB_SOCKET=/var/run/mysqld/mysqld.sock 	# for Linux" >> .env
 # In your my.cnf file:
+# - "/etc/mysql/my.cnf" to set global options,
+# - "~/.my.cnf" to set user-specific options.
+
 # [mysqld]
 # user 	 = mysql
 # pid-file = /var/run/mysqld/mysqld.pid

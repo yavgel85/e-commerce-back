@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Addresses\AddressController;
+use App\Http\Controllers\Addresses\AddressShippingController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\MeController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -16,6 +17,8 @@ Route::resource('products', ProductController::class);
 Route::resource('addresses', AddressController::class);
 Route::resource('countries', CountryController::class);
 Route::resource('orders', OrderController::class);
+
+Route::get('addresses/{address}/shipping', AddressShippingController::class);
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('register', RegisterController::class);
