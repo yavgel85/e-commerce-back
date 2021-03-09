@@ -12,27 +12,27 @@ class Order extends Model
 {
     use HasFactory;
 
-//    const PENDING        = 'pending';
-//    const PROCESSING     = 'processing';
-//    const PAYMENT_FAILED = 'payment_failed';
-//    const COMPLETED      = 'completed';
+    public const PENDING        = 'pending';
+    public const PROCESSING     = 'processing';
+    public const PAYMENT_FAILED = 'payment_failed';
+    public const COMPLETED      = 'completed';
 
     protected $fillable = [
-        //'status',
+        'status',
         'address_id',
         'shipping_method_id',
         //'payment_method_id',
         //'subtotal'
     ];
 
-//    public static function boot(): void
-//    {
-//        parent::boot();
-//
-//        static::creating(function ($order) {
-//            $order->status = self::PENDING;
-//        });
-//    }
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($order) {
+            $order->status = self::PENDING;
+        });
+    }
 
 //    public function getSubtotalAttribute($subtotal)
 //    {
