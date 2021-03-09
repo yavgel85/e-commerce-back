@@ -2,6 +2,7 @@
 
 namespace App\Cart;
 
+use App\Models\ShippingMethod;
 use App\Models\User;
 
 class Cart
@@ -18,6 +19,13 @@ class Cart
     public function products()
     {
         return $this->user->cart;
+    }
+
+    public function withShipping($shippingId): Cart
+    {
+        $this->shipping = ShippingMethod::find($shippingId);
+
+        return $this;
     }
 
     public function add($products): void
