@@ -64,10 +64,10 @@ class Order extends Model
 //        return $this->belongsTo(PaymentMethod::class);
 //    }
 
-//    public function products(): BelongsToMany
-//    {
-//        return $this->belongsToMany(ProductVariation::class, 'product_variation_order')
-//            ->withPivot(['quantity'])
-//            ->withTimestamps();
-//    }
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(ProductVariation::class, 'product_variation_order')
+            ->withPivot(['quantity'])
+            ->withTimestamps();
+    }
 }
