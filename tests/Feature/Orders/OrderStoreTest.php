@@ -132,6 +132,28 @@ class OrderStoreTest extends TestCase
         ]);
     }
 
+    public function test_it_attaches_the_products_to_the_order(): void
+    {
+        $user = User::factory()->create();
+
+        $user->cart()->sync(
+            $product = $this->productWithStock()
+        );
+
+        [$address, $shipping/*, $payment*/] = $this->orderDependencies($user);
+
+        $response = $this->jsonAs($user, 'POST', 'api/orders', [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shipping->id,
+            //'payment_method_id' => $payment->id,
+        ]);
+
+        $this->assertDatabaseHas('product_variation_order', [
+            'product_variation_id' => $product->id,
+            'order_id' => json_decode($response->getContent())->data->id
+        ]);
+    }
+
 
 
     protected function productWithStock()
