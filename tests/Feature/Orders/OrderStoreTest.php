@@ -108,6 +108,30 @@ class OrderStoreTest extends TestCase
             ->assertJsonValidationErrors(['shipping_method_id']);
     }
 
+    public function test_it_can_create_an_order(): void
+    {
+        $user = User::factory()->create();
+
+        $user->cart()->sync(
+            $product = $this->productWithStock()
+        );
+
+        [$address, $shipping/*, $payment*/] = $this->orderDependencies($user);
+
+        $this->jsonAs($user, 'POST', 'api/orders', [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shipping->id,
+            //'payment_method_id' => $payment->id,
+        ]);
+
+        $this->assertDatabaseHas('orders', [
+            'user_id' => $user->id,
+            'address_id' => $address->id,
+            'shipping_method_id' => $shipping->id,
+            //'payment_method_id' => $payment->id,
+        ]);
+    }
+
 
 
     protected function productWithStock()
@@ -119,5 +143,30 @@ class OrderStoreTest extends TestCase
         ]);
 
         return $product;
+    }
+
+    protected function orderDependencies(User $user): array
+    {
+//        $stripeCustomer = \Stripe\Customer::create([
+//            'email' => $user->email,
+//        ]);
+//
+//        $user->update([
+//            'gateway_customer_id' => $stripeCustomer->id
+//        ]);
+
+        $address = Address::factory()->create([
+            'user_id' => $user->id
+        ]);
+
+        $shipping = ShippingMethod::factory()->create();
+
+        $shipping->countries()->attach($address->country);
+
+//        $payment = PaymentMethod::factory()->create([
+//            'user_id' => $user->id
+//        ]);
+
+        return [$address, $shipping/*, $payment*/];
     }
 }

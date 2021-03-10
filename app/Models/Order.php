@@ -22,7 +22,7 @@ class Order extends Model
         'address_id',
         'shipping_method_id',
         //'payment_method_id',
-        //'subtotal'
+        'subtotal'
     ];
 
     public static function boot(): void

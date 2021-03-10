@@ -29,7 +29,7 @@ class OrderFactory extends Factory
 //            'payment_method_id' => PaymentMethod::factory()->create([
 //                'user_id' => User::factory()->create()->id
 //            ])->id,
-//            'subtotal' => 1000
+            'subtotal' => 1000
         ];
     }
 }

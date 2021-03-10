@@ -40,10 +40,9 @@ class OrderController extends Controller
 
     public function store(OrderStoreRequest $request, Cart $cart): OrderResource
     {
-        dd('store');
         $order = $this->createOrder($request, $cart);
 
-        $order->products()->sync($cart->products()->forSyncing());
+        //$order->products()->sync($cart->products()->forSyncing());
 
         //event(new OrderCreated($order));
 
@@ -53,7 +52,7 @@ class OrderController extends Controller
     protected function createOrder(Request $request, Cart $cart)
     {
         return $request->user()->orders()->create(
-            array_merge($request->only(['address_id', 'shipping_method_id', /*'payment_method_id'*/]), [
+            array_merge($request->only(['address_id', 'shipping_method_id'/*, 'payment_method_id'*/]), [
                 'subtotal' => $cart->subtotal()->amount()
             ])
         );
