@@ -42,15 +42,7 @@ class OrderController extends Controller
     {
         $order = $this->createOrder($request, $cart);
 
-        $products = $cart->products()->keyBy('id')->map(function ($product) {
-           return [
-              'quantity' => $product->pivot->quantity,
-           ] ;
-        })->toArray();
-
-        $order->products()->sync($products);
-
-        //$order->products()->sync($cart->products()->forSyncing());
+        $order->products()->sync($cart->products()->forSyncing());
 
         //event(new OrderCreated($order));
 
