@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-//use App\Cart\Money;
+use App\Cart\Money;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,15 +34,15 @@ class Order extends Model
         });
     }
 
-//    public function getSubtotalAttribute($subtotal)
-//    {
-//        return new Money($subtotal);
-//    }
-//
-//    public function total()
-//    {
-//        return $this->subtotal->add($this->shippingMethod->price);
-//    }
+    public function getSubtotalAttribute($subtotal): Money
+    {
+        return new Money($subtotal);
+    }
+
+    public function total()
+    {
+        return $this->subtotal->add($this->shippingMethod->price);
+    }
 
     public function user(): BelongsTo
     {

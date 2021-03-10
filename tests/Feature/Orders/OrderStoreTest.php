@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Orders;
 
+use App\Events\Order\OrderCreated;
 use App\Models\Address;
 use App\Models\ProductVariation;
 use App\Models\ShippingMethod;
 use App\Models\Stock;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
 
 class OrderStoreTest extends TestCase
@@ -174,6 +176,47 @@ class OrderStoreTest extends TestCase
             ->assertStatus(400);
     }
 
+    public function test_it_fires_an_order_created_event(): void
+    {
+        Event::fake();
+
+        $user = User::factory()->create();
+
+        $user->cart()->sync(
+            $product = $this->productWithStock()
+        );
+
+        [$address, $shipping/*, $payment*/] = $this->orderDependencies($user);
+
+        $response = $this->jsonAs($user, 'POST', 'api/orders', [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shipping->id,
+            //'payment_method_id' => $payment->id,
+        ]);
+
+        Event::assertDispatched(OrderCreated::class, function ($event) use ($response) {
+            return $event->order->id === json_decode($response->getContent())->data->id;
+        });
+    }
+
+    public function test_it_empties_the_cart_when_ordering(): void
+    {
+        $user = User::factory()->create();
+
+        $user->cart()->sync(
+            $product = $this->productWithStock()
+        );
+
+        [$address, $shipping/*, $payment*/] = $this->orderDependencies($user);
+
+        $this->jsonAs($user, 'POST', 'api/orders', [
+            'address_id' => $address->id,
+            'shipping_method_id' => $shipping->id,
+            //'payment_method_id' => $payment->id,
+        ]);
+
+        $this->assertEmpty($user->cart);
+    }
 
 
     protected function productWithStock()
