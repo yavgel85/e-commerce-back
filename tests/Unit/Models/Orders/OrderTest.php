@@ -6,7 +6,7 @@ namespace Tests\Unit\Models\Orders;
 use App\Models\Address;
 use App\Models\Order;
 //use App\Models\PaymentMethod;
-//use App\Models\ProductVariation;
+use App\Models\ProductVariation;
 use App\Models\ShippingMethod;
 //use App\Models\Transaction;
 use App\Models\User;
@@ -59,35 +59,35 @@ class OrderTest extends TestCase
 //        $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
 //    }
 
-//    public function test_it_has_many_products(): void
-//    {
-//        $order = factory(Order::class)->create([
-//            'user_id' => factory(User::class)->create()->id
-//        ]);
-//
-//        $order->products()->attach(
-//            factory(ProductVariation::class)->create(), [
-//                'quantity' => 1
-//            ]
-//        );
-//
-//        $this->assertInstanceOf(ProductVariation::class, $order->products->first());
-//    }
+    public function test_it_has_many_products(): void
+    {
+        $order = Order::factory()->create([
+            'user_id' => User::factory()->create()->id
+        ]);
 
-//    public function test_it_has_a_quantity_attached_to_the_products(): void
-//    {
-//        $order = factory(Order::class)->create([
-//            'user_id' => factory(User::class)->create()->id
-//        ]);
-//
-//        $order->products()->attach(
-//            factory(ProductVariation::class)->create(), [
-//                'quantity' => $quantity = 2
-//            ]
-//        );
-//
-//        $this->assertEquals($order->products->first()->pivot->quantity, $quantity);
-//    }
+        $order->products()->attach(
+            ProductVariation::factory()->create(), [
+                'quantity' => 1
+            ]
+        );
+
+        $this->assertInstanceOf(ProductVariation::class, $order->products->first());
+    }
+
+    public function test_it_has_a_quantity_attached_to_the_products(): void
+    {
+        $order = Order::factory()->create([
+            'user_id' => User::factory()->create()->id
+        ]);
+
+        $order->products()->attach(
+            ProductVariation::factory()->create(), [
+                'quantity' => $quantity = 2
+            ]
+        );
+
+        $this->assertEquals($order->products->first()->pivot->quantity, $quantity);
+    }
 
 //    public function test_it_returns_a_money_instance_for_the_subtotal(): void
 //    {
