@@ -17,7 +17,7 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:api']);
-        //$this->middleware(['cart.sync', 'cart.isnotempty'])->only('store');
+        $this->middleware(['cart.sync', 'cart.isnotempty'])->only('store');
     }
 
     public function index(Request $request): AnonymousResourceCollection
@@ -39,12 +39,8 @@ class OrderController extends Controller
         return OrderResource::collection($orders);
     }
 
-    public function store(OrderStoreRequest $request, Cart $cart)/*: OrderResource*/
+    public function store(OrderStoreRequest $request, Cart $cart): OrderResource
     {
-        if ($cart->isEmpty()) {
-            return response(null, 400);
-        }
-
         $order = $this->createOrder($request, $cart);
 
         $order->products()->sync($cart->products()->forSyncing());

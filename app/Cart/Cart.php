@@ -7,11 +7,11 @@ use App\Models\User;
 
 class Cart
 {
-    protected User $user;
+    protected $user;
     protected bool $changed = false;
     protected $shipping;
 
-    public function __construct(User $user)
+    public function __construct($user)
     {
         $this->user = $user;
     }
