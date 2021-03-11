@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             CountriesTableSeeder::class,
             AddressesTableSeeder::class,
+            ShippingMethodsTableSeeder::class,
         ]);
     }
 }
