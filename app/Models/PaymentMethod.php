@@ -18,24 +18,6 @@ class PaymentMethod extends Model
         'default',
     ];
 
-    /*public static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($paymentMethod) {
-            if ($paymentMethod->default) {
-                $paymentMethod->user->paymentMethods()->update([
-                    'default' => false
-                ]);
-            }
-        });
-    }
-
-    public function setDefaultAttribute($value): void
-    {
-        $this->attributes['default'] = $value === 'true' || $value;
-    }*/
-
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
