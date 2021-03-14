@@ -5,7 +5,7 @@ namespace Tests\Unit\Models\Orders;
 use App\Cart\Money;
 use App\Models\Address;
 use App\Models\Order;
-//use App\Models\PaymentMethod;
+use App\Models\PaymentMethod;
 use App\Models\ProductVariation;
 use App\Models\ShippingMethod;
 //use App\Models\Transaction;
@@ -111,15 +111,15 @@ class OrderTest extends TestCase
         $this->assertEquals($order->total()->amount(), 2000);
     }
 
-//    public function test_it_belongs_to_a_payment_method(): void
-//    {
-//        $order = Order::factory()->create([
-//            'user_id' => User::factory()->create()->id
-//        ]);
-//
-//        $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
-//    }
-//
+    public function test_it_belongs_to_a_payment_method(): void
+    {
+        $order = Order::factory()->create([
+            'user_id' => User::factory()->create()->id
+        ]);
+
+        $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
+    }
+
 //    public function test_it_has_many_transactions(): void
 //    {
 //        $order = Order::factory()->create([
