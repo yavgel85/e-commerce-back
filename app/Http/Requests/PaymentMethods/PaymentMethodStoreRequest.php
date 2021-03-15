@@ -24,7 +24,7 @@ class PaymentMethodStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'token' => 'required',
+            //'token' => 'required',
         ];
     }
 }
