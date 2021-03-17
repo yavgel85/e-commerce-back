@@ -6,16 +6,15 @@ use App\Cart\Payments\Gateway;
 use App\Cart\Payments\GatewayCustomer;
 use App\Exceptions\PaymentFailedException;
 use App\Models\PaymentMethod;
-use App\Models\User;
 use Exception;
 use Stripe\Charge as StripeCharge;
 use Stripe\Customer as StripeCustomer;
 
 class StripeGatewayCustomer implements GatewayCustomer
 {
-    protected $gateway;
+    protected Gateway $gateway;
 
-    protected $customer;
+    protected StripeCustomer $customer;
 
     public function __construct(Gateway $gateway, StripeCustomer $customer)
     {

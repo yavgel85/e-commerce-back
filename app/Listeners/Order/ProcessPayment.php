@@ -4,6 +4,7 @@ namespace App\Listeners\Order;
 
 use App\Cart\Payments\Gateway;
 use App\Events\Order\OrderCreated;
+use App\Events\Order\OrderPaymentFailed;
 use App\Exceptions\PaymentFailedException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -41,7 +42,7 @@ class ProcessPayment implements ShouldQueue
 
             //event(new OrderPaid($order));
         } catch (PaymentFailedException $e) {
-            //event(new OrderPaymentFailed($order));
+            event(new OrderPaymentFailed($order));
         }
     }
 }
