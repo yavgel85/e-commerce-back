@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\Order\OrderCreated;
 use App\Listeners\Order\EmptyCart;
+use App\Listeners\Order\ProcessPayment;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +22,7 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         OrderCreated::class => [
+            ProcessPayment::class,
             EmptyCart::class,
         ],
     ];
