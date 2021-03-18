@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\PaymentMethod;
 use App\Models\ProductVariation;
 use App\Models\ShippingMethod;
-//use App\Models\Transaction;
+use App\Models\Transaction;
 use App\Models\User;
 use Tests\TestCase;
 
@@ -120,16 +120,16 @@ class OrderTest extends TestCase
         $this->assertInstanceOf(PaymentMethod::class, $order->paymentMethod);
     }
 
-//    public function test_it_has_many_transactions(): void
-//    {
-//        $order = Order::factory()->create([
-//            'user_id' => User::factory()->create()->id
-//        ]);
-//
-//        Transaction::factory()->create([
-//            'order_id' => $order->id
-//        ]);
-//
-//        $this->assertInstanceOf(Transaction::class, $order->transactions->first());
-//    }
+    public function test_it_has_many_transactions(): void
+    {
+        $order = Order::factory()->create([
+            'user_id' => User::factory()->create()->id
+        ]);
+
+        Transaction::factory()->create([
+            'order_id' => $order->id
+        ]);
+
+        $this->assertInstanceOf(Transaction::class, $order->transactions->first());
+    }
 }
