@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\Order\OrderCreated;
 use App\Events\Order\OrderPaid;
 use App\Events\Order\OrderPaymentFailed;
+use App\Listeners\Order\CreateTransaction;
 use App\Listeners\Order\EmptyCart;
 use App\Listeners\Order\MarkOrderPaymentFailed;
 use App\Listeners\Order\MarkOrderProcessing;
@@ -33,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
             MarkOrderPaymentFailed::class,
         ],
         OrderPaid::class => [
-            //CreateTransaction::class,
+            CreateTransaction::class,
             MarkOrderProcessing::class,
         ],
     ];
